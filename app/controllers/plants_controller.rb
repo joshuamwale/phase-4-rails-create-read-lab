@@ -1,36 +1,25 @@
+
 class PlantsController < ApplicationController
-    #GET /plants 
-    def index 
-        plants = Plant.all 
-        render json: plants 
-    end
-
-    def show
-        plant = Plant.find_by(id: params[:id])
-        if plant
-          render json: plant
-        else
-          render json: { error: "Plant not found" }, status: :not_found
-        end
-    end
-
-    def show 
-        plant = Plant.find_by(params[1])
-        render json: plant
-    end
-
-    #POST /plants
-
-    def create 
-        plant = Plant.create(plant_params)
-        render json: plant, status: :created
-    end
-
-
-    # plant = Plant.create(name: params[:name], image: params[:image],price: params[:price] )
+    wrap_parameters format: []
   
-    private 
-    def plant_params 
-        params.permit(:name, :image, :price)
+    def index
+        plants = Plant.all
+        render json: plants
     end
-end
+  
+    def show
+      plants = Plant.find_by(id: params[:id])
+      render json: plants
+    end
+  
+    def create
+      plants = Plant.create(plant_params)
+      render json: plants, status: :created
+    end
+  
+    private
+  
+    def plant_params
+      params.permit(:name, :image, :price)
+    end
+  end
